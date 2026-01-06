@@ -1,9 +1,10 @@
 /** @type {import("pliny/config").PlinyConfig } */
 const siteMetadata = {
-  title: 'Meditations.',
+  title: 'Ross Everett Altman',
   author: 'Ross Everett Altman',
   headerTitle: 'Ross Everett Altman',
-  description: 'Machine Learning • Data Science • Physics • Computational Biology',
+  description:
+    'Personal homepage for Ross Everett Altman. I am a data scientist, full stack machine learning engineer, and physicist.',
   language: 'en-us',
   theme: 'system', // system, dark or light
   siteUrl: 'https://knowbodynos.github.io/',
@@ -21,9 +22,7 @@ const siteMetadata = {
   // threads: 'https://www.threads.net',
   // instagram: 'https://www.instagram.com',
   // medium: 'https://medium.com',
-  // bluesky: 'https://bsky.app/profile/rossaltman.bsky.social',
-  scholar: 'https://scholar.google.com/citations?user=5B5KnqkAAAAJ&sortby=pubdate',
-  patents: 'https://patents.google.com/?inventor=Ross+Everett+ALTMAN',
+  bluesky: 'https://bsky.app/profile/rossaltman.bsky.social',
   locale: 'en-US',
   // set to true if you want a navbar fixed to the top
   stickyNav: false,
@@ -54,7 +53,7 @@ const siteMetadata = {
   newsletter: {
     // supports mailchimp, buttondown, convertkit, klaviyo, revue, emailoctopus, beehive
     // Please add your .env file and modify it according to your selection
-    provider: 'buttondown',
+    // provider: 'buttondown',
   },
   comments: {
     // If you want to use an analytics provider you have to add it to the

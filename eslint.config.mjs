@@ -67,4 +67,10 @@ export default [
       '@typescript-eslint/ban-ts-comment': 'off',
     },
   },
+  {
+    files: ['next-env.d.ts'],
+    rules: {
+      '@typescript-eslint/triple-slash-reference': 'off',
+    },
+  }
 ]
