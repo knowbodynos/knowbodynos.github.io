@@ -2,7 +2,7 @@
 'use client'
 
 import React, { useCallback, useEffect, useMemo, useState } from 'react'
-import { useForm } from 'react-hook-form'
+import { useForm, Resolver } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useMutation } from '@tanstack/react-query'
 
@@ -17,40 +17,43 @@ import RunQueryCard from '@/components/toriccy/RunQueryCard'
 type Level = FormValues['resultLevel']
 type Joinable = 'GEOM' | 'TRIANG' | 'INVOL' | 'SWISSCHEESE'
 
-function requiredJoinsForLevel(level: Level): Joinable[] {
-  switch (level) {
-    case 'POLY':
-      return []
-    case 'GEOM':
-      return ['GEOM']
-    case 'TRIANG':
-      return ['GEOM', 'TRIANG']
-    case 'INVOL':
-      return ['GEOM', 'TRIANG', 'INVOL']
-    case 'SWISSCHEESE':
-      return ['GEOM', 'SWISSCHEESE']
+function Page() {
+  function requiredJoinsForLevel(level: Level): Joinable[] {
+    switch (level) {
+      case 'POLY':
+        return []
+      case 'GEOM':
+        return ['GEOM']
+      case 'TRIANG':
+        return ['GEOM', 'TRIANG']
+      case 'INVOL':
+        return ['GEOM', 'TRIANG', 'INVOL']
+      case 'SWISSCHEESE':
+        return ['GEOM', 'SWISSCHEESE']
+      default:
+        return []
+    }
   }
-}
 
-function deepestLevelFromSelection(values: FormValues): Level {
-  const joins = new Set(values.joins ?? [])
-  const joinCols = values.joinColumns ?? { GEOM: [], TRIANG: [], INVOL: [], SWISSCHEESE: [] }
+  function deepestLevelFromSelection(values: FormValues): Level {
+    const joins = new Set(values.joins ?? [])
+    const joinCols = values.joinColumns ?? { GEOM: [], TRIANG: [], INVOL: [], SWISSCHEESE: [] }
 
-  const hasGeom = joins.has('GEOM') || (joinCols.GEOM?.length ?? 0) > 0
-  const hasTriang = joins.has('TRIANG') || (joinCols.TRIANG?.length ?? 0) > 0
-  const hasInvol = joins.has('INVOL') || (joinCols.INVOL?.length ?? 0) > 0
-  const hasSwiss = joins.has('SWISSCHEESE') || (joinCols.SWISSCHEESE?.length ?? 0) > 0
+    const hasGeom = joins.has('GEOM') || (joinCols.GEOM?.length ?? 0) > 0
+    const hasTriang = joins.has('TRIANG') || (joinCols.TRIANG?.length ?? 0) > 0
+    const hasInvol = joins.has('INVOL') || (joinCols.INVOL?.length ?? 0) > 0
+    const hasSwiss = joins.has('SWISSCHEESE') || (joinCols.SWISSCHEESE?.length ?? 0) > 0
 
-  if (hasInvol) return 'INVOL'
-  if (hasTriang) return 'TRIANG'
-  if (hasSwiss) return 'SWISSCHEESE'
-  if (hasGeom) return 'GEOM'
-  return 'POLY'
-}
+    if (hasInvol) return 'INVOL'
+    if (hasTriang) return 'TRIANG'
+    if (hasSwiss) return 'SWISSCHEESE'
+    if (hasGeom) return 'GEOM'
+    return 'POLY'
+  }
 
-export default function ToriccyPage() {
+  // Type-safe zodResolver wrapper to avoid 'any' and type errors
   const form = useForm<FormValues>({
-    resolver: zodResolver(FormSchema),
+    resolver: zodResolver(FormSchema) as Resolver<FormValues, object>,
     mode: 'onChange',
     defaultValues: FormSchema.parse({}),
   })
@@ -203,15 +206,16 @@ export default function ToriccyPage() {
         <ResultsCard
           rows={rows}
           columns={columns}
-          loading={mutation.isPending}
-          error={mutation.isError ? (mutation.error?.message ?? 'Query failed') : null}
-          hasNext={hasNext}
+          isPending={mutation.isPending}
+          error={mutation.isError ? (mutation.error as Error) : null}
+          canNext={hasNext && !!nextCursor && !mutation.isPending}
+          canPrev={cursor != null && !mutation.isPending}
           onNext={nextPage}
-          nextDisabled={nextDisabled}
-          prevDisabled={prevDisabled}
           onPrev={() => {}}
         />
       </div>
     </div>
   )
 }
+
+export default Page
