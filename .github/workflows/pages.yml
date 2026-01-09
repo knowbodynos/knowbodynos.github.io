@@ -3,7 +3,8 @@ name: GitHub Pages
 
 on:
   push:
-    branches: main
+    branches:
+      - main
   workflow_dispatch:
 
 permissions:
@@ -20,6 +21,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+      - name: Create .env file
+        run: |
+          echo "MONGODB_URI=${{ secrets.MONGODB_URI }}" > .env.local
+          echo "MONGODB_DB=${{ secrets.MONGODB_DB }}" >> .env.local
       - uses: actions/setup-node@v4
         with:
           node-version: '20'
