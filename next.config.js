@@ -1,6 +1,7 @@
-const { withContentlayer } = require('next-contentlayer2')
+import { withContentlayer } from 'next-contentlayer2'
+import createBundleAnalyzer from '@next/bundle-analyzer'
 
-const withBundleAnalyzer = require('@next/bundle-analyzer')({
+const withBundleAnalyzer = createBundleAnalyzer({
   enabled: process.env.ANALYZE === 'true',
 })
 
@@ -13,7 +14,10 @@ const ContentSecurityPolicy = `
   media-src *.s3.amazonaws.com;
   connect-src *;
   font-src 'self';
-  frame-src giscus.app
+  frame-src giscus.app;
+  worker-src 'self' blob:;
+  object-src 'none';
+  base-uri 'self';
 `
 
 const securityHeaders = [
@@ -61,7 +65,7 @@ const unoptimized = process.env.UNOPTIMIZED ? true : undefined
 /**
  * @type {import('next/dist/next-server/server/config').NextConfig}
  **/
-module.exports = () => {
+const nextConfig = () => {
   const plugins = [withContentlayer, withBundleAnalyzer]
   return plugins.reduce((acc, next) => next(acc), {
     output,
@@ -90,6 +94,13 @@ module.exports = () => {
       ]
     },
     webpack: (config, options) => {
+      // ✅ Force pdfjs-dist to use legacy build (avoids Next dev ESM wrapper crash)
+      config.resolve.alias = {
+        ...(config.resolve.alias || {}),
+        'pdfjs-dist/build/pdf.mjs': 'pdfjs-dist/legacy/build/pdf.mjs',
+        'pdfjs-dist/build/pdf.worker.min.mjs': 'pdfjs-dist/legacy/build/pdf.worker.min.mjs',
+      }
+
       config.module.rules.push({
         test: /\.svg$/,
         use: ['@svgr/webpack'],
@@ -99,3 +110,5 @@ module.exports = () => {
     },
   })
 }
+
+export default nextConfig
