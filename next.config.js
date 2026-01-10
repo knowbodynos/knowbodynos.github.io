@@ -66,8 +66,7 @@ const unoptimized = process.env.UNOPTIMIZED ? true : undefined
  * @type {import('next/dist/next-server/server/config').NextConfig}
  **/
 const nextConfig = () => {
-  const plugins = [withContentlayer, withBundleAnalyzer]
-  return plugins.reduce((acc, next) => next(acc), {
+  const base = {
     output,
     basePath,
     reactStrictMode: true,
@@ -93,7 +92,11 @@ const nextConfig = () => {
         },
       ]
     },
-    webpack: (config, options) => {
+  }
+
+  // Only attach webpack customizations when NOT running Turbopack
+  if (!process.env.TURBOPACK) {
+    base.webpack = (config, options) => {
       // ✅ Force pdfjs-dist to use legacy build (avoids Next dev ESM wrapper crash)
       config.resolve.alias = {
         ...(config.resolve.alias || {}),
@@ -107,8 +110,16 @@ const nextConfig = () => {
       })
 
       return config
-    },
-  })
+    }
+  }
+
+  // Apply plugin HOCs only when not running with Turbopack.
+  if (process.env.TURBOPACK) {
+    return base
+  }
+
+  const plugins = [withContentlayer, withBundleAnalyzer]
+  return plugins.reduce((acc, next) => next(acc), base)
 }
 
 export default nextConfig
