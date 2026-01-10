@@ -9,8 +9,7 @@ const ResumePdfViewer = dynamic(() => import('@/components/ResumePdfViewer'), {
 })
 
 export default function Page() {
-  const pdfUrl =
-    'https://raw.githubusercontent.com/mozilla/pdf.js/master/web/compressed.tracemonkey-pldi-09.pdf'
+  const pdfUrl = 'https://raw.githubusercontent.com/knowbodynos/resume/main/resume.pdf'
 
   return <ResumePdfViewer pdfUrl={pdfUrl} />
 }

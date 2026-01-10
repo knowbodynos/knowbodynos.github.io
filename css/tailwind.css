@@ -1,3 +1,38 @@
+/* Add your custom styles here */
+
+/* Prism styles imported separately */
+/* Prepare to append PDF layer overrides (will add new rules in next patch) */
+
+/* Additional styles can be added below */
+
+/* React-PDF text/annotation layer contrast for dark mode */
+.react-pdf__Page__textContent {
+  color: #111827; /* slate-900 */
+}
+.react-pdf__Page__annotations {
+  color: #111827;
+}
+
+:root.dark .react-pdf__Page__textContent,
+.dark .react-pdf__Page__textContent,
+:root.dark .react-pdf__Page__annotations,
+.dark .react-pdf__Page__annotations {
+  color: #e6eef8; /* light text for dark backgrounds */
+}
+
+/* Make sure links inside PDFs are visible in dark mode */
+.react-pdf__Page__textContent a {
+  color: inherit;
+  text-decoration: underline;
+}
+
+/* Reduce annotation background in dark mode */
+.react-pdf__Page__annotations .annotHighlight {
+  background: rgba(147, 197, 253, 0.12); /* subtle blue */
+}
+.dark .react-pdf__Page__annotations .annotHighlight {
+  background: rgba(147, 197, 253, 0.12);
+}
 @import 'tailwindcss';
 @plugin "@tailwindcss/forms";
 @plugin '@tailwindcss/typography';
@@ -7,7 +42,8 @@
 /* Core theme configuration */
 @theme {
   /* Font families */
-  --font-sans: var(--font-space-grotesk), ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji',
+  --font-sans:
+    var(--font-space-grotesk), ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji',
     'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
 
   /* Colors */

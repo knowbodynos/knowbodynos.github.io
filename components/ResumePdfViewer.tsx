@@ -38,74 +38,73 @@ export default function ResumePdfViewer({ pdfUrl }: { pdfUrl: string }) {
 
   if (error) {
     return (
-      <div
-        style={{
-          padding: 12,
-          borderRadius: 12,
-          background: '#fee2e2',
-          border: '1px solid #fecaca',
-        }}
-      >
+      <div className="rounded-xl border border-red-200 bg-red-100 p-3 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-100">
         <b>Failed to load PDF</b>
-        <div style={{ marginTop: 6, whiteSpace: 'pre-wrap' }}>{error}</div>
+        <div className="mt-1 whitespace-pre-wrap">{error}</div>
       </div>
     )
   }
 
   return (
     <div>
-      <div
-        style={{
-          position: 'sticky',
-          top: 0,
-          zIndex: 20,
-          background: 'rgba(246,247,249,0.9)',
-          backdropFilter: 'blur(6px)',
-          borderBottom: '1px solid #e5e7eb',
-          padding: '12px 16px',
-          display: 'flex',
-          gap: 12,
-          alignItems: 'center',
-          flexWrap: 'wrap',
-        }}
-      >
-        <div style={{ fontWeight: 700 }}>Resume Viewer</div>
-        <button onClick={zoomOut} style={btnStyle} type="button">
+      <div className="sticky top-0 z-20 flex flex-wrap items-center gap-3 border-b border-gray-200 bg-white/90 px-4 py-3 backdrop-blur-md dark:border-slate-800 dark:bg-slate-900/90">
+        <div className="font-bold">Resume Viewer</div>
+        <button
+          onClick={zoomOut}
+          className="cursor-pointer rounded-xl border border-gray-300 bg-white px-3 py-2 text-slate-900 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-100"
+          type="button"
+        >
           −
         </button>
-        <div style={{ minWidth: 70, textAlign: 'center' }}>{Math.round(zoom * 100)}%</div>
-        <button onClick={zoomIn} style={btnStyle} type="button">
+        <div className="min-w-[70px] text-center">{Math.round(zoom * 100)}%</div>
+        <button
+          onClick={zoomIn}
+          className="cursor-pointer rounded-xl border border-gray-300 bg-white px-3 py-2 text-slate-900 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-100"
+          type="button"
+        >
           +
         </button>
-        <button onClick={resetZoom} style={btnStyle} type="button">
+        <button
+          onClick={resetZoom}
+          className="cursor-pointer rounded-xl border border-gray-300 bg-white px-3 py-2 text-slate-900 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-100"
+          type="button"
+        >
           Fit
         </button>
 
-        <div style={{ marginLeft: 'auto', display: 'flex', gap: 12, alignItems: 'center' }}>
+        <div className="ml-auto flex items-center gap-3">
           {numPages ? (
-            <div style={{ fontSize: 13 }}>
+            <div className="text-sm">
               {numPages} page{numPages === 1 ? '' : 's'}
             </div>
           ) : null}
-          <a href={pdfUrl} target="_blank" rel="noreferrer">
+          <a
+            href={pdfUrl}
+            target="_blank"
+            rel="noreferrer"
+            className="text-blue-600 dark:text-blue-300"
+          >
             Open raw PDF ↗
           </a>
-          <a href={pdfUrl} download>
+          <a href={pdfUrl} download className="text-blue-600 dark:text-blue-300">
             Download
           </a>
         </div>
       </div>
 
-      <div ref={containerRef} style={{ padding: 16, background: '#f6f7f9' }}>
+      <div ref={containerRef} className="bg-gray-100 p-4 dark:bg-slate-950">
         <Document
           file={pdfUrl}
           onLoadSuccess={({ numPages }) => setNumPages(numPages)}
           onLoadError={(e: Error) => setError(e.message)}
-          loading={<div style={{ padding: 16 }}>Loading PDF…</div>}
+          loading={<div className="p-4">Loading PDF…</div>}
         >
-          <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
+          <div className="flex flex-col gap-4">
             {Array.from({ length: numPages || 1 }, (_, i) => (
-              <div key={i + 1} style={pageCardStyle}>
+              <div
+                key={i + 1}
+                className="mx-auto overflow-auto rounded-xl border border-gray-200 bg-white p-2.5 shadow-sm dark:border-slate-800 dark:bg-slate-900 dark:shadow-lg"
+              >
                 <Page pageNumber={i + 1} width={pageWidth} />
               </div>
             ))}
@@ -114,22 +113,4 @@ export default function ResumePdfViewer({ pdfUrl }: { pdfUrl: string }) {
       </div>
     </div>
   )
-}
-
-const btnStyle: React.CSSProperties = {
-  padding: '8px 12px',
-  borderRadius: 10,
-  border: '1px solid #d1d5db',
-  background: 'white',
-  cursor: 'pointer',
-}
-
-const pageCardStyle: React.CSSProperties = {
-  margin: '0 auto',
-  padding: 10,
-  borderRadius: 12,
-  border: '1px solid #e5e7eb',
-  background: 'white',
-  boxShadow: '0 1px 2px rgba(0,0,0,0.05)',
-  overflow: 'auto',
 }
