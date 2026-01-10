@@ -59,7 +59,7 @@ export default function BaseQueryCard({
           }}
         >
           <div>
-            <div style={{ fontWeight: 800 }}>Polytope Information (POLY)</div>
+            <div style={{ fontWeight: 800 }}>Polytope Features (POLY)</div>
             <div style={{ fontSize: 12, color: '#6b7280', marginTop: 2 }}>
               Cursor-paged POLY, used as the root for joins.
             </div>

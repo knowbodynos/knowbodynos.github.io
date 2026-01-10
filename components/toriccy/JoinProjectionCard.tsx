@@ -125,7 +125,7 @@ export default function JoinProjectionCard({
   }
 
   return (
-    <Card title="Polytope-derived Information">
+    <Card title="Polytope-derived Features">
       <div style={{ color: '#6b7280', fontSize: 12, marginBottom: 10 }}>
         Required joins are locked based on result level. Each join is limited per parent inside its
         lookup pipeline.

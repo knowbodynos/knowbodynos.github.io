@@ -50,19 +50,19 @@ export const COLLECTIONS: Record<CollectionName, CollectionUiConfig> = {
         fields: ['POLYID', 'POLYN'],
       },
       {
+        title: 'Matched row counts',
+        fields: ['NGEOMS', 'NALLTRIANGS'],
+      },
+      {
         title: 'Topological invariants',
         fields: ['H11', 'H21', 'EULER', 'FAV', 'FUNDGP'],
       },
       {
-        title: 'Counts',
-        fields: ['NGEOMS', 'NALLTRIANGS', 'NNPOINTS', 'NDPOINTS', 'NNVERTS', 'NDVERTS'],
+        title: 'Polytope vertex features',
+        fields: ['NNPOINTS', 'NDPOINTS', 'NNVERTS', 'NDVERTS', 'NVERTS', 'DVERTS', 'DRESVERTS'],
       },
       {
-        title: 'Vertex data',
-        fields: ['NVERTS', 'DVERTS', 'DRESVERTS'],
-      },
-      {
-        title: 'Weights / CWS',
+        title: 'Combined weight systems',
         fields: ['CWS', 'RESCWS'],
       },
       {
@@ -72,7 +72,7 @@ export const COLLECTIONS: Record<CollectionName, CollectionUiConfig> = {
     ]
 
     return {
-      label: 'Polytope (POLY)',
+      label: 'Polytope Features (POLY)',
       fieldGroups,
       fields: flatten(fieldGroups),
       filterableFields: [
@@ -147,12 +147,12 @@ export const COLLECTIONS: Record<CollectionName, CollectionUiConfig> = {
         fields: ['POLYID', 'GEOMN'],
       },
       {
-        title: 'Topological invariants',
-        fields: ['H11', 'CHERN2XNUMS', 'CHERN2XJ', 'IPOLYXJ', 'ITENSXJ'],
+        title: 'Matched row counts',
+        fields: ['NTRIANGS'],
       },
       {
-        title: 'Counts',
-        fields: ['NTRIANGS'],
+        title: 'Topological invariants',
+        fields: ['H11', 'CHERN2XNUMS', 'CHERN2XJ', 'IPOLYXJ', 'ITENSXJ'],
       },
       {
         title: 'Mori & Kähler cone matrices',
@@ -161,7 +161,7 @@ export const COLLECTIONS: Record<CollectionName, CollectionUiConfig> = {
     ]
 
     return {
-      label: 'Glued CY Geometry (GEOM)',
+      label: 'Glued CY Geometry Features (GEOM)',
       fieldGroups,
       fields: flatten(fieldGroups),
       filterableFields: [
@@ -199,8 +199,8 @@ export const COLLECTIONS: Record<CollectionName, CollectionUiConfig> = {
         fields: ['POLYID', 'GEOMN', 'TRIANGN', 'ALLTRIANGN'],
       },
       {
-        title: 'Triangulation',
-        fields: ['TRIANG'],
+        title: 'Matched row counts',
+        fields: ['NTRIANGS', 'NINVOL'],
       },
       {
         title: 'Topological invariants',
@@ -221,11 +221,11 @@ export const COLLECTIONS: Record<CollectionName, CollectionUiConfig> = {
         ],
       },
       {
-        title: 'Counts',
-        fields: ['NTRIANGS', 'NINVOL'],
+        title: 'Triangulation decompositions',
+        fields: ['TRIANG'],
       },
       {
-        title: 'Algebraic data',
+        title: 'Algebraic features',
         fields: ['DIVCOHOM', 'SRIDEAL'],
       },
       {
@@ -235,7 +235,7 @@ export const COLLECTIONS: Record<CollectionName, CollectionUiConfig> = {
     ]
 
     return {
-      label: 'Triangulation (TRIANG)',
+      label: 'Triangulation / Kähler Cone Phase Features (TRIANG)',
       fieldGroups,
       fields: flatten(fieldGroups),
       filterableFields: [
@@ -301,25 +301,25 @@ export const COLLECTIONS: Record<CollectionName, CollectionUiConfig> = {
         fields: ['POLYID', 'GEOMN', 'TRIANGN', 'INVOLN'],
       },
       {
+        title: 'Matched key counts',
+        fields: ['NCYTERMS', 'NSYMCYTERMS'],
+      },
+      {
         title: 'Topological invariants',
         fields: ['H11', 'H11+', 'H11-', 'H21+', 'H21-', 'VOLFORMPARITY', 'ITENSXDINVOL'],
       },
       {
-        title: 'Counts',
-        fields: ['NCYTERMS', 'NSYMCYTERMS'],
-      },
-      {
-        title: 'Smoothness / singularity',
+        title: 'Manifold smoothness features',
         fields: ['SMOOTH', 'CYSINGDIM'],
       },
       {
-        title: 'Involution & orientifold planes',
+        title: 'Orientifold involution features',
         fields: ['INVOL', 'SRINVOL', 'INVOLDIVCOHOM', 'CYPOLY', 'SYMCYPOLY', 'OPLANES'],
       },
     ]
 
     return {
-      label: 'Involution (INVOL)',
+      label: 'Orientifold Involution Features (INVOL)',
       fieldGroups,
       fields: flatten(fieldGroups),
       filterableFields: [
@@ -398,13 +398,13 @@ export const COLLECTIONS: Record<CollectionName, CollectionUiConfig> = {
         fields: ['H11'],
       },
       {
-        title: 'Swiss-cheese structure',
+        title: 'Swiss-cheese LVS structures',
         fields: ['EXPLICIT'],
       },
     ]
 
     return {
-      label: 'Swiss-cheese (SWISSCHEESE)',
+      label: 'Swiss-cheese Large Volume Scenario Features (SWISSCHEESE)',
       fieldGroups,
       fields: flatten(fieldGroups),
       filterableFields: ['POLYID', 'GEOMN', 'H11', 'EXPLICIT'],
