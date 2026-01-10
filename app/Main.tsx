@@ -12,7 +12,14 @@ export default function Home({ posts }) {
     <>
       <div className="my-6 flex flex-col gap-x-12 lg:mb-12 lg:flex-row">
         <div className="flex flex-col items-start justify-start space-y-6 md:mt-24 md:flex-row md:items-center md:justify-center md:space-x-6 md:divide-y-0">
-          <div className="space-y-4 md:border-r-2 md:border-gray-200 dark:md:border-gray-700">
+          <div className="space-y-4 text-center md:border-r-2 md:border-gray-200 dark:md:border-gray-700">
+            <div className="flex justify-center">
+              <img
+                src="/static/images/avatar.png"
+                alt={`${siteMetadata.author} avatar`}
+                className="mb-6 h-48 w-48 rounded-full object-cover"
+              />
+            </div>
             <h1 className="text-3xl font-bold text-gray-900 sm:text-4xl dark:text-gray-100">
               {siteMetadata.author}
             </h1>
@@ -25,25 +32,32 @@ export default function Home({ posts }) {
               My interests center on{' '}
               <b>
                 how structure shapes and encodes information, giving rise to emergent, real-world
-                behavior.
+                behavior
               </b>
+              .
             </p>
+
             <p>
-              I'm passionate about geometry, symmetry, language, representation, and complex
-              systems. I am a strong advocate for interdisciplinary knowledge building, and adapting
-              mature frameworks from one domain to emerging problems in another to drive innovation
-              forward.
+              I explore this through the study of geometry, symmetry, representation, and complex
+              systems, and apply it through the design of production systems and pipelines that
+              embody these principles. I’m especially interested in interdisciplinary knowledge
+              building and adapting mature frameworks from one domain to emerging problems in
+              another to drive innovation forward.
             </p>
+
             <p>
-              I am currently a <b>Staff Machine Learning Engineer at Inari Agriculture</b> and
-              maintainer of a large, open-source data resource serving the international String
-              Theory community.
+              I am a <b>Staff Machine Learning Engineer at Inari Agriculture</b> and maintainer of a
+              large, open-source{' '}
+              <a href="/toriccy" className="text-pink-600 hover:underline dark:text-pink-400">
+                data resource
+              </a>{' '}
+              serving the international String Theory community.
             </p>
           </div>
         </div>
       </div>
 
-      <div className="divide-y divide-gray-200 dark:divide-gray-700">
+      {/* <div className="divide-y divide-gray-200 dark:divide-gray-700">
         <div className="space-y-2 pt-6 pb-8 md:space-y-5">
           <h2 className="font-mono text-sm tracking-wider text-gray-500 uppercase dark:text-gray-400">
             Latest Writing
@@ -114,7 +128,7 @@ export default function Home({ posts }) {
           </h2>
           <NewsletterForm title="Stay updated, receive the latest post straight to your mailbox" />
         </div>
-      </div>
+      </div> */}
     </>
   )
 }
