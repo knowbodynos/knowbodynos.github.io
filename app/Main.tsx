@@ -38,11 +38,11 @@ export default function Home({ posts }) {
             </p>
 
             <p>
-              I explore this through the study of geometry, symmetry, representation, and complex
-              systems, and apply it through the design of production systems and pipelines that
-              embody these principles. I’m especially interested in interdisciplinary knowledge
-              building and adapting mature frameworks from one domain to emerging problems in
-              another to drive innovation forward.
+              I've pursued this through the study of geometry, symmetry, representation, and complex
+              systems, and I continue to apply it through the design of algorithms, production
+              systems, and pipelines that embody these principles. I'm especially interested in
+              interdisciplinary knowledge building and adapting mature frameworks from one domain to
+              emerging problems in another to drive innovation forward.
             </p>
 
             <p>
