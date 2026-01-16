@@ -11,7 +11,7 @@ echo "== Install deps =="
 sudo apt update && sudo apt -y upgrade
 sudo apt -y install git curl nginx certbot python3-certbot-nginx
 
-curl -fsSL https://deb.nodesource.com/setup_lts.x | sudo -E bash -
+curl -fsSL https://deb.nodesource.com/setup_22.x | sudo -E bash -
 sudo apt -y install nodejs
 sudo npm i -g pm2
 
