@@ -80,9 +80,7 @@
     "typescript": "^5.9.3"
   },
   "overrides": {
-    "parse5": {
-      "entities": "^4.5.0"
-    }
+    "entities": "4.5.0"
   },
   "lint-staged": {
     "*.+(js|jsx|ts|tsx)": [
