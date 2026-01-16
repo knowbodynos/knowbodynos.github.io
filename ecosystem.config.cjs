@@ -8,7 +8,7 @@ module.exports = {
       env: {
         NODE_ENV: "production",
       },
-      env_file: "/var/www/homepage/.env.production",
+      env_file: "/var/www/homepage/.env.production.local",
       time: true,
     },
   ],
