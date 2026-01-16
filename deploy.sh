@@ -15,7 +15,7 @@ curl -fsSL https://deb.nodesource.com/setup_lts.x | sudo -E bash -
 sudo apt -y install nodejs
 sudo npm i -g pm2
 
-# Create a .env.production file
+# Create a .env.production.local file
 
 echo "== Build =="
 npm ci
