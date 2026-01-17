@@ -14,6 +14,9 @@ sudo apt -y install git curl nginx certbot python3-certbot-nginx
 curl -fsSL https://deb.nodesource.com/setup_22.x | sudo -E bash -
 sudo apt -y install nodejs
 sudo npm i -g pm2
+node -v
+npm -v
+pm2 -v
 
 # Create a .env.production.local file
 
