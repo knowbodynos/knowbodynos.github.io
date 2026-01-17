@@ -8,15 +8,23 @@ import { FlatCompat } from '@eslint/eslintrc'
 
 const __filename = fileURLToPath(import.meta.url)
 const __dirname = path.dirname(__filename)
-const compat = new FlatCompat({
-  baseDirectory: __dirname,
-})
+const compat = new FlatCompat({ baseDirectory: __dirname })
 
 export default [
+  // Ignore generated/build output (huge speed win)
   {
-    ignores: [],
+    ignores: [
+      '.next/**',
+      'node_modules/**',
+      '.contentlayer/**',
+      'out/**',
+      'dist/**',
+      'coverage/**',
+    ],
   },
+
   js.configs.recommended,
+
   ...compat.extends(
     'plugin:@typescript-eslint/eslint-recommended',
     'plugin:@typescript-eslint/recommended',
@@ -25,28 +33,44 @@ export default [
     'next',
     'next/core-web-vitals'
   ),
-  {
-    plugins: {
-      '@typescript-eslint': typescriptEslint,
-    },
 
+  // JS/MJS: lint without typed TS program (prevents TSConfig mismatch)
+  {
+    files: ['**/*.{js,mjs,cjs}'],
     languageOptions: {
       globals: {
         ...globals.browser,
         ...globals.amd,
         ...globals.node,
       },
+      ecmaVersion: 'latest',
+      sourceType: 'module',
+    },
+    rules: {
+      'prettier/prettier': 'error',
+    },
+  },
 
+  // TS/TSX: typed linting using a dedicated ESLint TSConfig
+  {
+    files: ['**/*.{ts,tsx}'],
+    plugins: {
+      '@typescript-eslint': typescriptEslint,
+    },
+    languageOptions: {
+      globals: {
+        ...globals.browser,
+        ...globals.amd,
+        ...globals.node,
+      },
       parser: tsParser,
-      ecmaVersion: 5,
-      sourceType: 'commonjs',
-
+      ecmaVersion: 'latest',
+      sourceType: 'module',
       parserOptions: {
-        project: true,
+        project: ['./tsconfig.eslint.json'],
         tsconfigRootDir: __dirname,
       },
     },
-
     rules: {
       'prettier/prettier': 'error',
       'react/react-in-jsx-scope': 'off',
@@ -67,10 +91,11 @@ export default [
       '@typescript-eslint/ban-ts-comment': 'off',
     },
   },
+
   {
     files: ['next-env.d.ts'],
     rules: {
       '@typescript-eslint/triple-slash-reference': 'off',
     },
-  }
+  },
 ]
