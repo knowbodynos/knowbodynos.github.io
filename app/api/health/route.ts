@@ -1,6 +1,5 @@
-// pages/api/health/route.ts
-import type { NextApiRequest, NextApiResponse } from 'next'
+import { NextResponse } from 'next/server'
 
-export default function handler(req: NextApiRequest, res: NextApiResponse) {
-  res.status(200).json({ ok: true })
+export function GET() {
+  return NextResponse.json({ ok: true })
 }

@@ -1,4 +1,5 @@
 import Link from '@/components/Link'
+import Image from 'next/image'
 import Tag from '@/components/Tag'
 import siteMetadata from '@/data/siteMetadata'
 import { formatDate } from 'pliny/utils/formatDate'
@@ -14,10 +15,13 @@ export default function Home({ posts }) {
         <div className="flex flex-col items-start justify-start space-y-6 md:mt-24 md:flex-row md:items-center md:justify-center md:space-x-6 md:divide-y-0">
           <div className="space-y-4 text-center md:border-r-2 md:border-gray-200 dark:md:border-gray-700">
             <div className="flex justify-center">
-              <img
+              <Image
                 src="/static/images/avatar.png"
                 alt={`${siteMetadata.author} avatar`}
-                className="mb-6 h-48 w-48 rounded-full object-cover"
+                width={192}
+                height={192}
+                className="mb-6 rounded-full object-cover"
+                priority
               />
             </div>
             <h1 className="text-3xl font-bold text-gray-900 sm:text-4xl dark:text-gray-100">
