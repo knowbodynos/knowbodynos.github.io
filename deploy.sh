@@ -38,7 +38,6 @@ echo "== Setup NGINX =="
 sudo cp "nginx/sites-available/homepage" "/etc/nginx/sites-available/$APP_NAME"
 sudo ln -s "/etc/nginx/sites-available/$APP_NAME" "/etc/nginx/sites-enabled/$APP_NAME"
 sudo nginx -t
-sudo systemctl reload nginx
 
 echo "== Done =="
 echo ""
