@@ -36,7 +36,7 @@ pm2 status "$APP_NAME"
 
 echo "== Setup NGINX =="
 sudo rm "/etc/nginx/sites-enabled/default" 2> /dev/null
-sudo cp "nginx/sites-available/default" "/etc/nginx/sites-available/$APP_NAME"
+sudo cp "nginx/sites-available/$APP_NAME" "/etc/nginx/sites-available/$APP_NAME"
 sudo ln -sf "/etc/nginx/sites-available/$APP_NAME" "/etc/nginx/sites-enabled/$APP_NAME"
 sudo nginx -t
 sudo systemctl reload nginx
@@ -44,4 +44,4 @@ sudo systemctl reload nginx
 echo "== Done =="
 echo ""
 echo "To update the nginx site with your domain and setup domain certificate, run (replace DOMAIN):"
-echo -en "DOMAIN=mydomain.com && \\ \nsudo sed -i \ \n  -e 's/listen 80;/listen 80;/' \ \n  -e 's/listen \[::\]:80;/listen [::]:80;/' \ \n  -e 's/server_name _;/server_name \${DOMAIN} www.\${DOMAIN};/' \ \n  /etc/nginx/sites-available/$APP_NAME && \\ \nsudo nginx -t && \\ \nsudo systemctl reload nginx && \\ \nsudo certbot --nginx -d \${DOMAIN} -d www.\${DOMAIN\n"
+echo -en "DOMAIN=mydomain.com && \\ \nsudo sed -i \ \n  -e 's/listen 80 default_server;/listen 80;/' \ \n  -e 's/listen \[::\]:80 default_server;/listen [::]:80;/' \ \n  -e 's/server_name _;/server_name \${DOMAIN} www.\${DOMAIN};/' \ \n  /etc/nginx/sites-available/$APP_NAME && \\ \nsudo nginx -t && \\ \nsudo systemctl reload nginx && \\ \nsudo certbot --nginx -d \${DOMAIN} -d www.\${DOMAIN\n"
