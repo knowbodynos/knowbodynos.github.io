@@ -5,8 +5,9 @@
   "type": "module",
   "scripts": {
     "start": "next dev",
-    "dev": "cross-env INIT_CWD=$PWD next dev",
-    "dev:turbopack": "cross-env INIT_CWD=$PWD TURBOPACK=1 next dev --turbo",
+    "dev": "npx concurrently \"npx contentlayer2 dev\" \"cross-env INIT_CWD=$PWD next dev\"",
+    "dev:turbopack": "npx concurrently \"npx contentlayer2 dev\" \"cross-env INIT_CWD=$PWD TURBOPACK=1 next dev --turbo\"",
+    "prebuild": "npx contentlayer2 build",
     "build": "cross-env INIT_CWD=$PWD next build && cross-env NODE_OPTIONS='--experimental-json-modules' node ./scripts/postbuild.mjs",
     "serve": "next start",
     "analyze": "cross-env ANALYZE=true next build",
