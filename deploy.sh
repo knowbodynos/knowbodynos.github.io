@@ -30,6 +30,8 @@ if pm2 list | grep -qw "$APP_NAME"; then
     pm2 reload "$APP_NAME" || pm2 restart "$APP_NAME"
 else
     pm2 start ecosystem.config.cjs
+    echo "pm2 exit code was: $?"
+    echo "I got past pm2"
     pm2 startup
 fi
 
