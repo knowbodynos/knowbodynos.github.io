@@ -30,9 +30,8 @@ if pm2 list | grep -qw "$APP_NAME"; then
     pm2 reload "$APP_NAME" || pm2 restart "$APP_NAME"
 else
     pm2 start ecosystem.config.cjs
-    echo "pm2 exit code was: $?"
-    echo "I got past pm2"
-    pm2 startup
+    # pm2 startup
+    sudo env PATH=$PATH:/usr/bin /usr/lib/node_modules/pm2/bin/pm2 startup systemd -u ubuntu --hp /home/ubuntu
 fi
 
 echo "== Save PM2 process list =="
