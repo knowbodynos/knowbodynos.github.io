@@ -7,6 +7,9 @@ APP_NAME="homepage"
 
 cd "$APP_DIR"
 
+# Ensure pm2 uses the same home as the running pm2 instance (adjust if different)
+export PM2_HOME=/home/ubuntu/.pm2
+
 echo "== Install deps =="
 sudo apt update && sudo apt -y upgrade
 sudo apt -y install git curl nginx certbot python3-certbot-nginx
@@ -23,7 +26,7 @@ npm ci
 npm run build
 
 echo "== Start app via PM2 =="
-if pm2 pid "$APP_NAME" > /dev/null; then
+if pm2 list | grep -qw "$APP_NAME"; then
     pm2 reload "$APP_NAME" || pm2 restart "$APP_NAME"
 else
     pm2 start ecosystem.config.cjs
