@@ -143,7 +143,10 @@ export default function JoinProjectionCard({
           const joinCondPath = `joinConditions.${name}` as FieldPath<FormValues>
 
           return (
-            <div key={name} className="rounded-xl border border-gray-200 p-3 dark:border-gray-800">
+            <div
+              key={name}
+              className="rounded-xl border border-gray-200 bg-white p-2 shadow-sm dark:border-gray-800 dark:bg-gray-900 dark:shadow-md"
+            >
               <div style={{ display: 'flex', alignItems: 'center', gap: 10, flexWrap: 'wrap' }}>
                 <label style={{ display: 'flex', gap: 10, alignItems: 'center' }}>
                   <input

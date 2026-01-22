@@ -327,38 +327,47 @@ function Page() {
         </div>
       </div>
 
-      <div className="grid gap-4">
-        <BaseQueryCard form={form} onResetPaging={onResetPaging} />
-        <JoinProjectionCard
-          form={form}
-          onResetPaging={onResetPaging}
-          requiredJoins={requiredJoins}
-        />
+      <div className="grid gap-3">
+        <div className="rounded-2xl bg-gradient-to-r from-blue-50 to-white p-1 dark:from-blue-900/40">
+          <BaseQueryCard form={form} onResetPaging={onResetPaging} />
+        </div>
+
+        <div className="rounded-2xl bg-gradient-to-r from-green-100 to-white p-1 dark:from-green-900/30">
+          <JoinProjectionCard
+            form={form}
+            onResetPaging={onResetPaging}
+            requiredJoins={requiredJoins}
+          />
+        </div>
 
         {/* Run card ABOVE results */}
-        <RunQueryCard
-          resultLevel={values.resultLevel}
-          suggestedLevel={suggestedLevel}
-          isAuto={isAuto}
-          onChangeResultLevel={onChangeResultLevel}
-          onUseSuggested={onUseSuggested}
-          onRun={runQuery}
-          onReset={resetForm}
-          disabled={!form.formState.isValid || mutation.isPending}
-          loading={mutation.isPending}
-          error={mutation.isError ? (mutation.error?.message ?? 'Query failed') : null}
-        />
+        <div className="rounded-2xl bg-gradient-to-r from-yellow-100 to-white p-1 dark:from-yellow-900/25">
+          <RunQueryCard
+            resultLevel={values.resultLevel}
+            suggestedLevel={suggestedLevel}
+            isAuto={isAuto}
+            onChangeResultLevel={onChangeResultLevel}
+            onUseSuggested={onUseSuggested}
+            onRun={runQuery}
+            onReset={resetForm}
+            disabled={!form.formState.isValid || mutation.isPending}
+            loading={mutation.isPending}
+            error={mutation.isError ? (mutation.error?.message ?? 'Query failed') : null}
+          />
+        </div>
 
-        <ResultsCard
-          rows={rows}
-          columns={columns}
-          isPending={mutation.isPending}
-          error={mutation.isError ? (mutation.error as Error) : null}
-          canNext={hasNext && !!nextCursor && !mutation.isPending}
-          canPrev={cursor != null && !mutation.isPending}
-          onNext={nextPage}
-          onPrev={() => {}}
-        />
+        <div className="rounded-2xl bg-gradient-to-r from-slate-100 to-white p-1 dark:from-slate-900/30">
+          <ResultsCard
+            rows={rows}
+            columns={columns}
+            isPending={mutation.isPending}
+            error={mutation.isError ? (mutation.error as Error) : null}
+            canNext={hasNext && !!nextCursor && !mutation.isPending}
+            canPrev={cursor != null && !mutation.isPending}
+            onNext={nextPage}
+            onPrev={() => {}}
+          />
+        </div>
       </div>
     </div>
   )
