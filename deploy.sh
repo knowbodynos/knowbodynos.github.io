@@ -7,6 +7,9 @@ APP_NAME="homepage"
 
 cd "$APP_DIR"
 
+# Ensure pm2 uses the same home as the running pm2 instance (adjust if different)
+export PM2_HOME=/home/ubuntu/.pm2
+
 echo "== Install deps =="
 sudo apt update && sudo apt -y upgrade
 sudo apt -y install git curl nginx certbot python3-certbot-nginx
@@ -18,27 +21,33 @@ sudo npm i -g pm2
 # Create a .env.production.local file
 
 echo "== Build =="
+npm install
 npm ci
 npm run build
 
 echo "== Start app via PM2 =="
-if pm2 pid "$APP_NAME" > /dev/null; then
-    pm2 reload "$APP_NAME" || pm2 restart "$APP_NAME"
-else
-    pm2 start ecosystem.config.cjs
-    pm2 startup
-fi
+pm2 delete "$APP_NAME" || true
+pm2 start ecosystem.config.cjs
+sudo env PATH=$PATH:/usr/bin /usr/lib/node_modules/pm2/bin/pm2 startup systemd -u ubuntu --hp /home/ubuntu
 
 echo "== Save PM2 process list =="
 pm2 save
 pm2 status "$APP_NAME"
 
-echo "== Setup NGINX =="
-sudo cp "nginx/sites-available/homepage" "/etc/nginx/sites-available/$APP_NAME"
-sudo ln -s "/etc/nginx/sites-available/$APP_NAME" "/etc/nginx/sites-enabled/$APP_NAME"
-sudo nginx -t
-sudo systemctl reload nginx
-
 echo "== Done =="
-echo "Setup domain certificate by running the following command:"
-echo "sudo certbot --nginx -d example.com -d www.example.com"
+echo ""
+echo "To update the nginx site with your domain and setup domain certificate, run (replace DOMAIN):"
+cat <<'EOF'
+DOMAIN=mydomain.com && \
+sudo rm -f "/etc/nginx/sites-enabled/default" && \
+sudo cp "nginx/sites-available/$APP_NAME" "/etc/nginx/sites-available/$APP_NAME" && \
+sudo sed -i \
+  -e 's/listen 80 default_server;/listen 80;/' \
+  -e 's/listen \[::\]:80 default_server;/listen [::]:80;/' \
+  -e "s/server_name _;/server_name ${DOMAIN} www.${DOMAIN};/" \
+  /etc/nginx/sites-available/$APP_NAME && \
+sudo ln -sf "/etc/nginx/sites-available/$APP_NAME" "/etc/nginx/sites-enabled/$APP_NAME" && \
+sudo nginx -t && \
+sudo systemctl reload nginx && \
+sudo certbot --nginx -d ${DOMAIN} -d www.${DOMAIN}
+EOF

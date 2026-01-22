@@ -72,9 +72,7 @@ const nextConfig = () => {
     reactStrictMode: true,
     trailingSlash: false,
     pageExtensions: ['ts', 'tsx', 'js', 'jsx', 'md', 'mdx'],
-    eslint: {
-      dirs: ['app', 'components', 'layouts', 'scripts'],
-    },
+    // `eslint` key in next.config.js is no longer supported; use `next lint` CLI instead
     images: {
       remotePatterns: [
         {

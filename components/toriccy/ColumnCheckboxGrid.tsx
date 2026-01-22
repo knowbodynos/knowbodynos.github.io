@@ -36,15 +36,15 @@ export default function ColumnCheckboxGrid({
   const renderGroup = (title: string, fields: readonly string[]) => (
     <div
       key={title}
-      className="rounded-2xl border border-gray-200 bg-white p-3 dark:border-gray-800 dark:bg-gray-950"
+      className="rounded-2xl border border-l-4 border-gray-300 border-l-blue-200 bg-slate-50 p-2 shadow-sm dark:border-gray-800 dark:border-l-blue-800 dark:bg-gray-950 dark:shadow-md"
     >
-      <div className="mb-2 text-xs font-black text-gray-700 dark:text-gray-200">{title}</div>
+      <div className="mb-1 text-xs font-black text-gray-700 dark:text-gray-200">{title}</div>
 
       <div
         style={{
           display: 'grid',
           gridTemplateColumns: `repeat(${columns}, minmax(0, 1fr))`,
-          gap: 8,
+          gap: 6,
         }}
       >
         {fields.map((field) => {
@@ -55,7 +55,7 @@ export default function ColumnCheckboxGrid({
             <label
               key={field}
               title={tip}
-              className="flex items-center gap-2 rounded-xl border border-gray-200 bg-white px-2 py-1.5 text-sm text-gray-900 dark:border-gray-800 dark:bg-gray-950 dark:text-gray-100"
+              className="flex items-center gap-2 rounded-xl border border-gray-200 bg-white px-2 py-1 text-sm text-gray-900 shadow-sm dark:border-gray-800 dark:bg-gray-900 dark:text-gray-100 dark:shadow-sm"
               style={{ cursor: 'pointer' }}
             >
               <input
@@ -74,7 +74,7 @@ export default function ColumnCheckboxGrid({
 
   // Preferred grouped rendering
   if (groups && groups.length > 0) {
-    return <div className="grid gap-10">{groups.map((g) => renderGroup(g.title, g.fields))}</div>
+    return <div className="grid gap-3">{groups.map((g) => renderGroup(g.title, g.fields))}</div>
   }
 
   // Fallback flat rendering
@@ -84,7 +84,7 @@ export default function ColumnCheckboxGrid({
       style={{
         display: 'grid',
         gridTemplateColumns: `repeat(${columns}, minmax(0, 1fr))`,
-        gap: 8,
+        gap: 6,
       }}
     >
       {flat.map((field) => {
@@ -95,7 +95,7 @@ export default function ColumnCheckboxGrid({
           <label
             key={field}
             title={tip}
-            className="flex items-center gap-2 rounded-xl border border-gray-200 bg-white px-2 py-1.5 text-sm text-gray-900 dark:border-gray-800 dark:bg-gray-950 dark:text-gray-100"
+            className="flex items-center gap-2 rounded-xl border border-gray-200 bg-white px-2 py-1.5 text-sm text-gray-900 shadow-sm dark:border-gray-800 dark:bg-gray-900 dark:text-gray-100 dark:shadow-sm"
             style={{ cursor: 'pointer' }}
           >
             <input
