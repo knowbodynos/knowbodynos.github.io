@@ -36,7 +36,7 @@ pm2 status "$APP_NAME"
 
 echo "== Setup NGINX =="
 sudo cp "nginx/sites-available/homepage" "/etc/nginx/sites-available/$APP_NAME"
-sudo ln -s "/etc/nginx/sites-available/$APP_NAME" "/etc/nginx/sites-enabled/$APP_NAME"
+sudo ln -sf "/etc/nginx/sites-available/$APP_NAME" "/etc/nginx/sites-enabled/$APP_NAME"
 sudo nginx -t
 
 echo "== Done =="
