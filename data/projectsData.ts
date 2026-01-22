@@ -7,20 +7,18 @@ interface Project {
 
 const projectsData: Project[] = [
   {
-    title: 'A Search Engine',
-    description: `What if you could look up any information in the world? Webpages, images, videos
-    and more. Google has many features to help you find exactly what you're looking
-    for.`,
-    imgSrc: '/static/images/google.png',
-    href: 'https://www.google.com',
+    title: 'ToricCY',
+    description: `A large, open-source database of >100k toric Calabi-Yau threefold vacuum spaces compatible with Type‐IIB string theory.
+    Equipped with a searchable web interface serving the international String Theory community.`,
+    imgSrc: '/static/images/toriccy.png',
+    href: 'https://www.rossealtman.com/toriccy',
   },
   {
-    title: 'The Time Machine',
-    description: `Imagine being able to travel back in time or to the future. Simple turn the knob
-    to the desired date and press "Go". No more worrying about lost keys or
-    forgotten headphones with this simple yet affordable solution.`,
-    imgSrc: '/static/images/time-machine.jpg',
-    href: '/blog/the-time-machine',
+    title: 'Wikontext',
+    description: `Smarter page previews for a smoother Wikipedia experience. 
+    Show the most relevant parts of a linked Wikipedia article with the hover of your mouse.`,
+    imgSrc: '/static/images/wikontext.png',
+    href: 'https://www.wikontext.us',
   },
 ]
 
