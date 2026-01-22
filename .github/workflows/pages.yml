@@ -5,6 +5,7 @@ on:
   push:
     branches:
       - main
+      - static2
   workflow_dispatch:
 
 permissions:
@@ -39,9 +40,14 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-nextjs-${{ hashFiles('**/yarn.lock') }}-
       - run: yarn
-      - run: yarn build:static
+      - name: Remove API routes for static export
+        run: |
+          if [ -d app/api ]; then
+            echo "Removing app/api to avoid server-only routes during static export"
+            rm -rf app/api
+          fi
+      - run: yarn build
         env:
-          NEXT_STATIC_EXPORT: 1
           EXPORT: 1
           UNOPTIMIZED: 1
           BASE_PATH: ${{ steps.configurepages.outputs.base_path }}
