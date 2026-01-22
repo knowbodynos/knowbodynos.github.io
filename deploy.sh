@@ -38,8 +38,9 @@ echo "== Setup NGINX =="
 sudo cp "nginx/sites-available/homepage" "/etc/nginx/sites-available/$APP_NAME"
 sudo ln -sf "/etc/nginx/sites-available/$APP_NAME" "/etc/nginx/sites-enabled/$APP_NAME"
 sudo nginx -t
+sudo systemctl reload nginx
 
 echo "== Done =="
 echo ""
 echo "To update the nginx site with your domain and setup domain certificate, run (replace DOMAIN):"
-echo -n "DOMAIN=mydomain.com && \ \nsudo sed -i 's/server_name example.com www.example.com;/server_name \${DOMAIN} www.\${DOMAIN};/' /etc/nginx/sites-available/$APP_NAME && \ \nsudo nginx -t && \ \nsudo systemctl reload nginx && \ \nsudo certbot --nginx -d \${DOMAIN} -d www.\${DOMAIN}"
+echo -n "DOMAIN=mydomain.com && \\ \nsudo sed -i \ \n  -e 's/listen 80 default_server;/listen 80;/' \ \n  -e 's/listen \[::\]:80 default_server;/listen [::]:80;/' \ \n  -e 's/server_name _;/server_name \${DOMAIN} www.\${DOMAIN};/' /etc/nginx/sites-available/$APP_NAME && \\ \nsudo nginx -t && \\ \nsudo systemctl reload nginx && \\ \nsudo certbot --nginx -d \${DOMAIN} -d www.\${DOMAIN}"
