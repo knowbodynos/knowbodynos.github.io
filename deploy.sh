@@ -26,13 +26,9 @@ npm ci
 npm run build
 
 echo "== Start app via PM2 =="
-if pm2 list | grep -qw "$APP_NAME"; then
-    pm2 reload "$APP_NAME" || pm2 restart "$APP_NAME"
-else
-    pm2 start ecosystem.config.cjs
-    # pm2 startup
-    sudo env PATH=$PATH:/usr/bin /usr/lib/node_modules/pm2/bin/pm2 startup systemd -u ubuntu --hp /home/ubuntu
-fi
+pm2 delete "$APP_NAME" || true
+pm2 start ecosystem.config.cjs
+sudo env PATH=$PATH:/usr/bin /usr/lib/node_modules/pm2/bin/pm2 startup systemd -u ubuntu --hp /home/ubuntu
 
 echo "== Save PM2 process list =="
 pm2 save
