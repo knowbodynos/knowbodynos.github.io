@@ -1,6 +1,6 @@
 /** @type {import("pliny/config").PlinyConfig } */
 const siteMetadata = {
-  title: 'Meditations.',
+  title: 'Ross Everett Altman',
   author: 'Ross Everett Altman',
   headerTitle: 'Ross Everett Altman',
   description: 'Machine Learning • Data Science • Physics • Computational Biology',
