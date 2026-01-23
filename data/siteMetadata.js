@@ -6,7 +6,7 @@ const siteMetadata = {
   description: 'Machine Learning • Data Science • Physics • Computational Biology',
   language: 'en-us',
   theme: 'system', // system, dark or light
-  siteUrl: 'https://knowbodynos.github.io/',
+  siteUrl: 'https://www.rossealtman.com',
   siteRepo: 'https://github.com/knowbodynos/knowbodynos.github.io',
   siteLogo: `${process.env.BASE_PATH || ''}/static/images/logo.png`,
   socialBanner: `${process.env.BASE_PATH || ''}/static/images/twitter-card.png`,
